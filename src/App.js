@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import "./App.css"
+import React, { useState } from "react";
+import "./App.css";
 // 5 + 5 -
 
 // operator click
@@ -8,44 +8,48 @@ import "./App.css"
 // result + second-operator
 
 const App = () => {
-  const [result, setResult] = useState("")
-  const [operators, setOperators] = useState([])
+  const [result, setResult] = useState("");
+  const [operators, setOperators] = useState([]);
 
-  const calculate = () => {
+  const calculate = (lastOperator = "") => {
     try {
-      setResult(eval(result).toString())
+      console.log(lastOperator);
+      let finalResult = eval(result).toString();
+      finalResult += lastOperator;
+      setResult(finalResult);
+
       // setResult(eval(result).toString() + operators[1])
-      setOperators([])
+      setOperators([lastOperator]);
     } catch {
-      setResult("Error")
+      setResult("Error");
+      setOperators([]);
     }
-  }
+  };
 
   const keypadHandel = async (e) => {
-    let input = e.target.name
-    let str = result
-    str += input
-    setResult(str)
+    let input = e.target.name;
+    let str = result;
+    str += input;
+    setResult(str);
 
     if ("+-*/".includes(input)) {
-      let currentOperators = [...operators]
-      currentOperators.push(input)
-      setOperators(currentOperators)
+      let currentOperators = [...operators];
+      currentOperators.push(input);
+      setOperators(currentOperators);
 
-      console.log(operators)
       if (operators.length === 1) {
-        calculate()
+        calculate(input);
       }
     }
-  }
+  };
 
   const backspace = () => {
-    setResult(result.slice(0, -1))
-  }
+    setResult(result.slice(0, -1));
+  };
 
   const clearScreen = () => {
-    setResult("")
-  }
+    setResult("");
+  };
 
   return (
     <>
@@ -106,13 +110,19 @@ const App = () => {
           <button onClick={keypadHandel} name=".">
             .
           </button>
-          <button className="highlight" onClick={calculate} id="equalBtn">
+          <button
+            className="highlight"
+            onClick={() => {
+              calculate();
+            }}
+            id="equalBtn"
+          >
             =
           </button>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
