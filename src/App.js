@@ -54,7 +54,8 @@ const App = () => {
   return (
     <>
       <div className="container">
-        <form>
+       <div className="calculator">
+       <form>
           <input type="text" name="result" id="result" value={result} />
         </form>
 
@@ -120,6 +121,7 @@ const App = () => {
             =
           </button>
         </div>
+       </div>
       </div>
     </>
   );
